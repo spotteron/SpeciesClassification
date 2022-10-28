@@ -11,7 +11,7 @@ from model.utils.roi_cupy import kernel_backward, kernel_forward
 Stream = namedtuple('Stream', ['ptr'])
 
 
-@cupy._util.memoize(for_each_device=True)
+@cupy.memoize(for_each_device=True)
 def load_kernel(kernel_name, code, **kwargs):
     cp.cuda.runtime.free(0)
     code = Template(code).substitute(**kwargs)
@@ -119,7 +119,7 @@ def test_roi_module():
         assert neq.sum() == 0, 'test failed: %s' % info
 
     # chainer version,if you're going to run this
-    # pip install chainer 
+    # pip install chainer
     import chainer.functions as F
     from chainer import Variable
     x_cn = Variable(t2c(x))
